@@ -1,0 +1,236 @@
+﻿@model DeploymentInsights.Models.Deployment
+
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+
+                    <h1 class="page-title">Deployment Information - @Model.Version (@Model.Date.ToString("yyyy-MM-dd HH:mm"))</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-xl-3">
+                <div class="card-box">
+                    <a href="@Url.Action("Deployments","Home", new {team_code=Model.TeamGuid, product_code=Model.ProductGuid })"><i class="fa fa-info-circle text-muted float-right"></i></a>
+                    <h4 class="mt-0 font-14">Deployment Frequency</h4>
+
+                    <h2 class="my-3 text-center"><span>@Model.Insights.DeploymentFrequency</span> days</h2>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card-box">
+                    <i class="fa fa-info-circle text-muted float-right" data-toggle="tooltip" data-placement="bottom" title=""></i>
+                    <h4 class="mt-0 font-14">Lead Time</h4>
+
+                    <h2 class="my-3 text-center"><span>@Model.Insights.AverageLeadTime</span> days</h2>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card-box">
+                    <i class="fa fa-info-circle text-muted float-right" data-toggle="tooltip" data-placement="bottom" title=""></i>
+                    <h4 class="mt-0 font-14">Change Fail Rate</h4>
+
+                    <h2 class="my-3 text-center"><span>@Model.Insights.ChangeFailRate</span> %</h2>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card-box">
+                    <a href="@Url.Action("MeanTimeToRecoveryInfo","Home", new {team_code=Model.TeamGuid, product_code=Model.ProductGuid })"><i class="fa fa-info-circle text-muted float-right"></i></a>
+                    @*<i class="fa fa-info-circle text-muted float-right" data-toggle="tooltip" data-placement="bottom" title=""></i>*@
+                    <h4 class="mt-0 font-14">Time to Recover</h4>
+
+                    <h2 class="my-3 text-center"><span>@Model.Insights.TimeToRestore</span> hours</h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Commits in release</h4>
+                        <br />
+                        <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Message</th>
+                                    <th>Lead Time</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var commit in Model.SimpleCommits)
+                                {
+                                    <tr>
+                                        <td>@commit.Date.ToString("yyyy-MM-dd HH:mm")</td>
+                                        <td>@commit.Message</td>
+                                        <td>@commit.LeadTime</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
+    </div>
+
+    @section Scripts{
+        <script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+        <script src="~/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="~/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+        <script src="~/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="~/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+        <script src="~/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="~/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+        <script src="~/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+                $("#basic-datatable").DataTable({
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    }
+                });
+                var a = $("#datatable-buttons").DataTable({
+                    lengthChange: !1,
+                    buttons: [{
+                        extend: "copy",
+                        className: "btn-light"
+                    }, {
+                        extend: "print",
+                        className: "btn-light"
+                    }, {
+                        extend: "pdf",
+                        className: "btn-light"
+                    }],
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    }
+                });
+                $("#selection-datatable").DataTable({
+                    select: {
+                        style: "multi"
+                    },
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    }
+                }), $("#key-datatable").DataTable({
+                    keys: !0,
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    }
+                }), a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"), $("#alternative-page-datatable").DataTable({
+                    pagingType: "full_numbers",
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    }
+                }), $("#scroll-vertical-datatable").DataTable({
+                    scrollY: "350px",
+                    scrollCollapse: !0,
+                    paging: !1,
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    }
+                }), $("#scroll-horizontal-datatable").DataTable({
+                    scrollX: !0,
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    }
+                }), $("#complex-header-datatable").DataTable({
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    },
+                    columnDefs: [{
+                        visible: !1,
+                        targets: -1
+                    }]
+                }), $("#row-callback-datatable").DataTable({
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    },
+                    createdRow: function (a, e, i) {
+                        15e4 < +e[5].replace(/[\$,]/g, "") && $("td", a).eq(5).addClass("text-danger")
+                    }
+                }), $("#state-saving-datatable").DataTable({
+                    stateSave: !0,
+                    language: {
+                        paginate: {
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>"
+                        }
+                    },
+                    drawCallback: function () {
+                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
+                    }
+                })
+            });
+
+        </script>
+    }

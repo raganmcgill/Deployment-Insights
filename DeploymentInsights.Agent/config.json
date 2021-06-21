@@ -1,0 +1,53 @@
+{
+  "ServerAddress": "https://localhost:44386/",
+  //"ServerAddress": "http://4km.raganmcgill.co.uk/",
+  "ObfuscateData": true,
+  "Teams": [
+    {
+      "Code": "team-one",
+      "Name": "Team One",
+      "Products": [
+        {
+          "Code": "product-c",
+          "Name": "Product C",
+          "GitLocations": [
+            "C:\\dev\\Company\\Example Product C"
+          ]
+        }
+      ]
+    },
+    {
+      "Code": "team-two",
+      "Name": "Team Two",
+      "Products": [
+        {
+          "Code": "product-F",
+          "Name": "Product F",
+          "GitLocations": [
+            "C:\\dev\\Company\\Example Product F"
+          ]
+        }
+      ]
+    },
+    {
+      "Code": "team-three",
+      "Name": "Team Three",
+      "Products": [
+        {
+          "Code": "product-M",
+          "Name": "Product M",
+          "GitLocations": [
+            "C:\\dev\\Company\\Example Product M"
+          ]
+        },
+        {
+          "Code": "product-P",
+          "Name": "Product P",
+          "GitLocations": [
+            "C:\\dev\\Company\\Example Product P"
+          ]
+        }
+      ]
+    }
+  ]
+}

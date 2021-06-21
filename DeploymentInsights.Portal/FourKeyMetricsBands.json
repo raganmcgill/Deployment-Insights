@@ -1,0 +1,82 @@
+{
+  "DeploymentFrequency": [
+    {
+      "Name": "Low",
+      "Min": 30.0, //1 month in days (30 days)
+      "Max": 180.0, //6 months in days
+      "Class": "text-danger"
+    },
+    {
+      "Name": "Medium",
+      "Min": 7.0, //7 days
+      "Max": 30.0, //1 month in days (30 days)
+      "Class": "text-warning"
+    },
+    {
+      "Name": "High",
+      "Min": 0.0,
+      "Max": 7.0, //7 days
+      "Class": "text-success"
+    }
+  ],
+  "LeadTime": [
+    {
+      "Name": "Low",
+      "Min": 30.0, //1 month in days
+      "Max": 180.0, //6 months in days
+      "Class": "text-danger"
+    },
+    {
+      "Name": "Medium",
+      "Min": 7.0, //7 days
+      "Max": 30.0, //1 month in days (30 days)
+      "Class": "text-warning"
+    },
+    {
+      "Name": "High",
+      "Min": 0.0, 
+      "Max": 7.0, //7 days
+      "Class": "text-success"
+    }
+  ],
+  "ChangeFailRate": [
+    {
+      "Name": "Low",
+      "Min": 60.0, //60%
+      "Max": 100.0, //100%
+      "Class": "text-danger"
+    },
+    {
+      "Name": "Medium",
+      "Min": 15.0, //15 %
+      "Max": 60.0, //60%
+      "Class": "text-warning"
+    },
+    {
+      "Name": "High",
+      "Min": 0.0,
+      "Max": 15.0, //15 %
+      "Class": "text-success"
+    }
+  ],
+  "MTTR": [
+    {
+      "Name": "Low",
+      "Min": 168.0, //1 day in hours
+      "Max": 720.0, //1 month in hours (30 days)
+      "Class": "text-danger"
+    },
+    {
+      "Name": "Medium",
+      "Min": 24.00, //1 day in hours
+      "Max": 168.0, //1 week in hours
+      "Class": "text-warning"
+    },
+    {
+      "Name": "High",
+      "Min": 0.0, 
+      "Max": 24.0, //1 day in hours
+      "Class": "text-success"
+    }
+  ]
+}

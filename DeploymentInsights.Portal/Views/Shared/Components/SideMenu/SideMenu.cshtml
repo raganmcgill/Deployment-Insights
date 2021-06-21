@@ -1,0 +1,58 @@
+﻿@model List<DeploymentInsights.Models.Team>
+
+@{
+    var number_of_months_parameter = Context.Request.Query["number_of_months"].FirstOrDefault();
+    var number_of_months = 12;
+    if (!string.IsNullOrWhiteSpace(number_of_months_parameter))
+    {
+        number_of_months = Int32.Parse(number_of_months_parameter);
+    }
+}
+
+<!--- Sidemenu -->
+<div id="sidebar-menu">
+
+    <ul id="side-menu">
+
+        @foreach (var team in Model)
+        {
+        <li>
+            <a href="@Url.Action("Index","Home",new {team_code=team.Code, number_of_months=number_of_months})">
+                <i data-feather="users"></i>
+                <span> <strong>@team.Name</strong> </span>
+            </a>
+            <div class="show" id="sidebarDashboards">
+                <ul class="nav-second-level">
+                    @foreach (var product in team.Products)
+                    {
+                    <li>
+                        <a href="@Url.Action("Index","Home",new {product_code=product.Code, number_of_months=number_of_months})">@product.Name</a>
+                    </li>
+                    }
+
+                </ul>
+            </div>
+        </li>
+        }
+
+        <hr />
+
+        <li>
+            <a data-toggle="collapse">
+                <i data-feather="alert-triangle"></i>
+                <span id="admin_menu_header"> <strong>Admin</strong> </span>
+            </a>
+            <div class="show" id="sidebarDashboards">
+                <ul class="nav-second-level">
+                    <li id="reset_menu_item">
+                        <a href="@Url.Action("Reset","Admin")" onclick="return confirm('Are you sure?')">Reset</a>
+                    </li>
+                    <li>
+                        <a href="~/swagger" target="_blank">Swagger</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+</div>
