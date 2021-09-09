@@ -30,7 +30,8 @@ namespace DeploymentInsights.Agent
             Console.WriteLine("Getting configuration");
             var config = GetConfiguration();
 
-            var d = DateTime.Now;
+            var from_date = DateTime.Now.AddMonths(-15);
+            var to_date = DateTime.Now;
 
             Console.WriteLine("");
             Console.WriteLine("Building Deployment Information");
@@ -49,13 +50,13 @@ namespace DeploymentInsights.Agent
                     //product.TeamCode = team.Code;
 
                     var deployments1 = git_helper.GetProductDeployments(product);
-                    var product_deployments = deployments1.Where(x => x.Date <= d).OrderBy(x => x.Date).ToList();
+                    var product_deployments = deployments1.Where(x => x.Date >= from_date && x.Date <= to_date).OrderBy(x => x.Date).ToList();
 
                     product.Deployments = calculator.Calculate(product_deployments);
                 }
 
                 var deployments2 = git_helper.GetTeamDeployments(team);
-                var team_deployments = deployments2.Where(x => x.Date <= d).OrderBy(x => x.Date).ToList();
+                var team_deployments = deployments2.Where(x => x.Date >= from_date && x.Date <= to_date).OrderBy(x => x.Date).ToList();
 
                 team.Deployments = calculator.Calculate(team_deployments);
 

@@ -1,50 +1,51 @@
 {
-  "ServerAddress": "https://localhost:44386/",
-  //"ServerAddress": "http://4km.raganmcgill.co.uk/",
+  //"ServerAddress": "https://localhost:44386/",
+  "ServerAddress": "http://4km.raganmcgill.co.uk/",
   "ObfuscateData": true,
   "Teams": [
     {
-      "Code": "team-one",
-      "Name": "Team One",
+      "Code": "sheep",
+      "Name": "Sheep",
       "Products": [
         {
-          "Code": "product-c",
-          "Name": "Product C",
+          "Code": "clone",
+          "Name": "Clone",
           "GitLocations": [
-            "C:\\dev\\Company\\Example Product C"
+            "C:\\dev\\SqlClone"
           ]
         }
       ]
     },
     {
-      "Code": "team-two",
-      "Name": "Team Two",
+      "Code": "flyway",
+      "Name": "Flyway",
       "Products": [
         {
-          "Code": "product-F",
-          "Name": "Product F",
+          "Code": "flyway",
+          "Name": "Flyway",
           "GitLocations": [
-            "C:\\dev\\Company\\Example Product F"
+            "C:\\dev\\flyway-main"
           ]
         }
       ]
     },
+
     {
-      "Code": "team-three",
-      "Name": "Team Three",
+      "Code": "misc",
+      "Name": "Misc",
       "Products": [
         {
-          "Code": "product-M",
-          "Name": "Product M",
+          "Code": "prompt",
+          "Name": "Prompt",
           "GitLocations": [
-            "C:\\dev\\Company\\Example Product M"
+            "C:\\dev\\SQLPrompt"
           ]
         },
         {
-          "Code": "product-P",
-          "Name": "Product P",
+          "Code": " monitor",
+          "Name": "Monitor",
           "GitLocations": [
-            "C:\\dev\\Company\\Example Product P"
+            "C:\\dev\\sqlmonitor"
           ]
         }
       ]

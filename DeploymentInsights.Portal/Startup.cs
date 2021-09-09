@@ -14,6 +14,7 @@ using DeploymentInsights.Portal.DataProviders;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace DeploymentInsights.Portal
 {
@@ -29,6 +30,12 @@ namespace DeploymentInsights.Portal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            services.AddMetrics();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddResponseCaching();
@@ -81,7 +88,7 @@ namespace DeploymentInsights.Portal
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+
 
             app.UseSwagger();
             app.UseSwaggerUI();
@@ -89,7 +96,7 @@ namespace DeploymentInsights.Portal
             app.UseResponseCompression();
 
             app.UseResponseCaching();
-           
+
         }
     }
 }
